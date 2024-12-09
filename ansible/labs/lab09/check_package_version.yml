@@ -1,0 +1,14 @@
+---
+- name: Capture and display package facts
+  hosts: n01580095-c-vm1.canadacentral.cloudapp.azure.com
+  gather_facts: false
+  tasks:
+    - name: Gather package facts
+      package_facts:
+        manager: auto
+
+    - name: Display version of the setup package
+      debug:
+        msg: >
+          The version of the "setup" package is: 
+          {{ ansible_facts.packages['setup'][0]['version'] if 'setup' in ansible_facts.packages else 'Package not found' }}

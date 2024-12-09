@@ -1,0 +1,41 @@
+---
+- name: Copy /etc/issue file and change ownership and permissions
+  hosts: linux  # Use the group name, not individual host
+  become: true
+  tasks:
+    - name: Copy /etc/issue file and set ownership and permissions
+      copy:
+        src: /etc/issue
+        dest: /etc/issue
+        owner: user4000
+        group: cloudadmins
+        mode: '0444'
+
+- name: Change timezone to America/Edmonton on linux hosts
+  hosts: linux  # Use the group name
+  become: true
+  tasks:
+    - name: Set timezone to America/Edmonton
+      timezone:
+        name: America/Edmonton
+
+- name: Create devops group and user on ansible-c-vm2
+  hosts: linux
+  become: true
+  tasks:
+    - name: Create devops group
+      group:
+        name: devops
+        state: present
+      when: inventory_hostname == 'n01580095-c-vm2.canadacentral.cloudapp.azure.com'
+
+    - name: Create devops1 user with supplementary membership to devops group
+      user:
+        name: devops1
+        uid: 2500
+        group: devops
+        groups: devops
+        state: present
+      when: inventory_hostname == 'n01580095-c-vm2.canadacentral.cloudapp.azure.com'
+
+

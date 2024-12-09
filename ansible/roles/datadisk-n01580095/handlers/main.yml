@@ -1,0 +1,5 @@
+---
+# handlers file for datadisk-n01580095
+- name: Rescan Partitions
+  ansible.builtin.command: partprobe
+  become: yes

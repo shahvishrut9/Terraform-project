@@ -1,0 +1,22 @@
+---
+- name: Install packages using host variables and display output
+  hosts: n01580095-c-vm1.canadacentral.cloudapp.azure.com
+  become: true
+  vars_files:
+    - vars/host_variables.yml
+  tasks:
+    - name: Install packages
+      yum:
+        name: "{{ packages }}"
+        state: present
+      register: package_output
+
+    - name: Display the entire task output
+      debug:
+        var: package_output
+
+    - name: Display names of installed packages
+      debug:
+        msg: "{{ item.name }}"
+      loop: "{{ package_output.results }}"
+      when: item.changed | default(false)

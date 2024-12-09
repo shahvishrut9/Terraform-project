@@ -1,0 +1,38 @@
+---
+- name: Install and configure Apache and MariaDB
+  hosts: n01580095-c-vm1.canadacentral.cloudapp.azure.com
+  become: yes
+
+  tasks:
+    - name: Install Apache web server
+      dnf:
+        name: httpd
+        state: present
+      notify: restart apache
+
+    - name: Install MariaDB server
+      dnf:
+        name: mariadb-server
+        state: present
+      notify: restart mariadb
+
+    - name: Enable Apache service on boot
+      systemd:
+        name: httpd
+        enabled: yes
+
+    - name: Enable MariaDB service on boot
+      systemd:
+        name: mariadb
+        enabled: yes
+
+  handlers:
+    - name: restart apache
+      systemd:
+        name: httpd
+        state: restarted
+
+    - name: restart mariadb
+      systemd:
+        name: mariadb
+        state: restarted

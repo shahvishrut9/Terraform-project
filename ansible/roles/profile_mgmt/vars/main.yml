@@ -1,0 +1,7 @@
+---
+locfile_path: /home/n01580095/automation/ansible/labs/lab10/locfile
+locfile_dest: /tmp/locfile
+emptyfile_path: /home/n01580095/emptyfile
+file_owner: n01580095
+file_group: root
+file_mode: '0444'

@@ -1,0 +1,7 @@
+# ~/automation/ansible/roles/package_remove/tasks/main.yml
+- name: Remove packages on RedHat or CentOS
+  package:
+    name: "{{ item }}"
+    state: absent
+  with_items: "{{ packages_to_remove }}"
+  when: ansible_distribution == "RedHat" or ansible_distribution == "CentOS"

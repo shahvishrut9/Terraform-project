@@ -1,0 +1,13 @@
+---
+# Variables file for syslog_updates
+
+rsyslog_config_file: "/etc/rsyslog.conf"
+rsyslog_text_block: "$FileCreateMode 0640"
+
+rsyslog_directory: "/etc/rsyslog.d"
+rsyslog_directory_owner: "root"
+rsyslog_directory_group: "root"
+rsyslog_directory_mode: "0640"
+
+log_directory: "/var/log"
+log_directory_mode: "0775"

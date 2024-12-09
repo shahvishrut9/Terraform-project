@@ -1,0 +1,5 @@
+# ~/automation/ansible/roles/package_remove/vars/main.yml
+packages_to_remove:
+  - rsync
+  - ldap-utils
+  - nis

@@ -1,0 +1,20 @@
+---
+- name: Copy /etc/issue file and change ownership and permissions
+  hosts: ansible-c-vm1
+  become: true
+  tasks:
+    - name: Copy /etc/issue file and set ownership and permissions
+      copy:
+        src: /etc/issue
+        dest: /etc/issue
+        owner: user4000
+        group: cloudadmins
+        mode: '0444'
+
+- name: Change timezone to America/Edmonton on linux hosts
+  hosts: linux
+  become: true
+  tasks:
+    - name: Set timezone to America/Edmonton
+      timezone:
+        name: America/Edmonton

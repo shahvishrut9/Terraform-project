@@ -1,0 +1,36 @@
+---
+- name: Define variables and create groups and users
+  hosts: n01580095-c-vm1.canadacentral.cloudapp.azure.com
+  become: true
+  vars_files:
+    - vars/userinfo.yml
+
+  tasks:
+    - name: Create group group100
+      group:
+        name: "{{ grouplist1 }}"
+        state: present
+
+    - name: Create group group200
+      group:
+        name: "{{ grouplist2 }}"
+        state: present
+
+    - name: Create user user100 with supplementary membership to group100
+      user:
+        name: "{{ userlist1 }}"
+        uid: "{{ uid_user100 }}"
+        group: "{{ grouplist1 }}"
+        groups: "{{ grouplist1 }}"
+        state: present
+
+    - name: Create user user200 with supplementary membership to group200
+      user:
+        name: "{{ userlist2 }}"
+        uid: "{{ uid_user200 }}"
+        shell: /bin/bash
+        home: "/home/{{ userlist2 }}"
+        group: "{{ grouplist2 }}"
+        groups: "{{ grouplist2 }}"
+        state: present
+

@@ -1,0 +1,9 @@
+---
+- name: Install ypserv using group variables
+  hosts: linux
+  tasks:
+    - name: Install ypserv package
+      package:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ packages }}"

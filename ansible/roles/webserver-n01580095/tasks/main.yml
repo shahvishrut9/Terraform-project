@@ -1,0 +1,24 @@
+---
+# tasks file for webserver-n01659360
+- name: Install Apache web server
+  dnf:
+    name: "{{ apache_package }}"
+    state: present
+  notify: restart apache
+
+- name: Copy FQDN file as index.html
+  template:
+    src: "{{ inventory_hostname_short | regex_replace('^linux-n59360vm', 'vm') }}.html"
+    dest: "{{ web_root }}/index.html"
+    mode: "{{ permissions }}"
+  notify: restart apache
+
+- name: Ensure Apache service is enabled
+  systemd:
+    name: "{{ apache_service }}"
+    enabled: yes
+
+- name: Start Apache service
+  systemd:
+    name: "{{ apache_service }}"
+    state: started

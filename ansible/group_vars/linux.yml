@@ -1,0 +1,4 @@
+# ~/automation/ansible/group_vars/linux.yml
+packages:
+  - ypserv
+

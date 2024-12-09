@@ -1,0 +1,13 @@
+---
+- name: Create user accounts with custom UIDs
+  hosts: linux
+  become: true
+  vars_files:
+    - "~/automation/ansible/labs/lab09/linux.yml"   # Path to the variable file
+  tasks:
+    - name: Create users
+      user:
+        name: "{{ item.name }}"
+        uid: "{{ item.uid }}"
+        state: present
+      loop: "{{ users }}"

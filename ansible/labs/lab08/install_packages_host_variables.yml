@@ -1,0 +1,13 @@
+---
+- name: Install packages using host variables
+  hosts: n01580095-c-vm1.canadacentral.cloudapp.azure.com
+  become: true
+  vars_files:
+    - vars/host_variables.yml
+
+  tasks:
+    - name: Install packages
+      package:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ packages }}"

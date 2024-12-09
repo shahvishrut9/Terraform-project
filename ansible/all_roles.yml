@@ -1,0 +1,11 @@
+---
+  - name: Run all roles
+    hosts: linux
+    become: yes
+    roles:
+      - role: package_remove
+      - role: package_install
+      - role: patching
+      - role: profile_mgmt
+      - role: timezone
+      - role: syslog_updates

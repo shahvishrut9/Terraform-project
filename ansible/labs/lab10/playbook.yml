@@ -1,0 +1,9 @@
+# ~/automation/ansible/playbook.yml
+- name: Software and Patch Management Playbook
+  hosts: linux
+  gather_facts: yes
+  become: yes
+  roles:
+    - package_remove
+    - package_install
+    - patching

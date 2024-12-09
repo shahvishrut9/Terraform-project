@@ -1,0 +1,33 @@
+---
+- name: Create user, group and install software
+  hosts: linux
+  become: true
+
+  tasks:
+    - name: Create group cloudadmins with GID 3000
+      group:
+        name: cloudadmins
+        gid: 3000
+
+    - name: Create user user4000 with UID 5000 and assign to cloudadmins group
+      user:
+        name: user4000
+        uid: 5000
+        group: cloudadmins
+        state: present
+
+    - name: Install the latest version of apache
+      dnf:
+        name: httpd
+        state: latest
+
+    - name: Install the latest version of nmap
+      dnf:
+        name: nmap
+        state: latest
+
+    - name: Start Apache service and enable it to start on boot
+      systemd:
+        name: httpd
+        state: started
+        enabled: true

@@ -1,0 +1,31 @@
+---
+- name: Install and configure Apache
+  hosts: n01580095-c-vm2.canadacentral.cloudapp.azure.com
+  become: yes
+
+  tasks:
+    - name: Install Apache web server
+      dnf:
+        name: httpd
+        state: present
+      notify: restart apache
+
+    - name: Add hostname to index.html
+      shell: echo "{{ ansible_hostname }}" > /var/www/html/index.html
+      notify: restart apache
+
+    - name: Ensure Apache service is enabled
+      systemd:
+        name: httpd
+        enabled: yes
+
+    - name: Start Apache service
+      systemd:
+        name: httpd
+        state: started
+
+  handlers:
+    - name: restart apache
+      systemd:
+        name: httpd
+        state: restarted

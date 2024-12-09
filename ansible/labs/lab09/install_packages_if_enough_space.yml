@@ -1,0 +1,18 @@
+---
+- name: Install packages based on disk space
+  hosts: n01580095-c-vm1.canadacentral.cloudapp.azure.com
+  become: yes
+  vars_files:
+    - ~/automation/ansible/host_vars/n01580095-c-vm2.yml
+
+  tasks:
+    - name: Gather disk space facts
+      setup:
+        filter: ansible_mounts
+
+    - name: Install packages if has at least 2GB free
+      package:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ packages }}"
+      when: ansible_mounts | selectattr('mount', 'equalto', '/') | map(attribute='size_available') | first > 2000000000

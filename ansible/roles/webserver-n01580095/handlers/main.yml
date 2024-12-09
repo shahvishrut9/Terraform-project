@@ -1,0 +1,6 @@
+---
+# handlers file for webserver-n01659360
+- name: restart apache
+  systemd:
+    name: "{{ apache_service }}"
+    state: restarted

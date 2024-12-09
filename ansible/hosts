@@ -1,0 +1,24 @@
+[linux]
+lnx-n01580095v1.canadacentral.cloudapp.azure.com ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+lnx-n01580095v2.canadacentral.cloudapp.azure.com ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+lnx-n01580095v3.canadacentral.cloudapp.azure.com ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+
+[windows]
+n015800951.canadacentral.cloudapp.azure.com ansible_python_interpreter=C:/Path/To/Python/python.exe
+
+[os:children]
+linux
+windows
+
+[windows:vars]
+ansible_user=n015800951
+ansible_password="_z7Urg.?A}DExkp"
+ansible_connection=winrm
+ansible_port=5985
+ansible_winrm_transport=ntlm
+ansible_winrm_server_cert_validation=ignore
+
+[linux:vars]
+ansible_become=true
+ansible_become_method=sudo
+ansible_become_user=root

@@ -1,0 +1,6 @@
+---
+# vars file for webserver-n01580095
+web_nodes:
+  - lnx-n01580095v1.canadacentral.cloudapp.azure.com
+  - lnx-n01580095v2.canadacentral.cloudapp.azure.com
+  - lnx-n01580095v3.canadacentral.cloudapp.azure.com

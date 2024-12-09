@@ -1,0 +1,6 @@
+# ~/automation/ansible/roles/package_install/vars/main.yml
+packages_to_install:
+  - cifs-utils
+  - nfs-utils
+  - audit
+  - chrony

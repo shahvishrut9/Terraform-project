@@ -1,0 +1,7 @@
+---
+# handlers file for syslog_updates
+
+- name: restart rsyslog
+  ansible.builtin.systemd:
+    name: rsyslog
+    state: restarted

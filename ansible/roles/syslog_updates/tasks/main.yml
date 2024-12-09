@@ -1,0 +1,33 @@
+---
+# tasks file for syslog_updates
+
+- name: Insert block of text in /etc/rsyslog.conf
+  ansible.builtin.lineinfile:
+    path: "/etc/rsyslog.conf"
+    line: "$FileCreateMode 0640"
+    state: present
+    create: yes
+
+- name: Set ownership and permissions on /etc/rsyslog.d directory
+  ansible.builtin.file:
+    path: "/etc/rsyslog.d"
+    owner: "root"
+    group: "root"
+    mode: "0640"
+    state: directory
+    recurse: yes
+
+- name: Set permissions on /var/log directory
+  ansible.builtin.file:
+    path: "/var/log"
+    mode: "0775"
+    state: directory
+    recurse: no
+
+- name: Notify handler to restart rsyslog service
+  ansible.builtin.systemd:
+    name: rsyslog
+    state: restarted
+  notify:
+    - restart rsyslog
+

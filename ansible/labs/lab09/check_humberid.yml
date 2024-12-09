@@ -1,0 +1,19 @@
+---
+- name: Check for presence of HumberID
+  hosts: linux
+  become: true
+  tasks:
+    - name: Check if HumberID exists
+      command: "id n01580095"
+      register: id_result
+      ignore_errors: true
+
+    - name: Display nodes with HumberID
+      debug:
+        msg: "HumberID exists on this node."
+      when: id_result.rc == 0
+
+    - name: Display nodes without HumberID
+      debug:
+        msg: "HumberID does not exist on this node."
+      when: id_result.rc != 0

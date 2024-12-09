@@ -1,0 +1,9 @@
+---
+- name: Check if OS is CentOS or RedHat
+  debug:
+    msg: "Setting timezone to America/Toronto"
+  when: ansible_distribution == "RedHat" or ansible_distribution == "CentOS"
+
+- name: Set timezone to America/Toronto
+  command: timedatectl set-timezone America/Toronto
+  when: ansible_distribution == "RedHat" or ansible_distribution == "CentOS"

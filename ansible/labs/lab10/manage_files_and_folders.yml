@@ -1,0 +1,32 @@
+---
+- name: Manage files and folders
+  hosts: n01580095-c-vm1.canadacentral.cloudapp.azure.com
+  become: yes
+
+  tasks:
+    - name: Create an empty file called locfile on the automation machine
+      local_action:
+        module: file
+        path: /home/n01580095/automation/ansible/labs/lab10/locfile
+        state: touch
+
+    - name: Copy locfile to the managed nodes under the /tmp directory
+      copy:
+        src: /home/n01580095/automation/ansible/labs/lab10/locfile
+        dest: /tmp/locfile
+        owner: n01580095
+        group: root
+        mode: '0444'
+
+    - name: Display the status of the /tmp/locfile file
+      command: ls -l /tmp/locfile
+      register: locfile_status
+
+    - name: Show the status of the /tmp/locfile file
+      debug:
+        msg: "{{ locfile_status.stdout }}"
+
+    - name: Create an empty file called emptyfile on the managed nodes
+      file:
+        path: ~/emptyfile
+        state: touch

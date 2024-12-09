@@ -1,0 +1,10 @@
+---
+- name: Conditional installation of nmap
+  hosts: n01580095-c-vm1.canadacentral.cloudapp.azure.com
+  become: true
+  tasks:
+    - name: Install nmap if it is defined
+      yum:
+        name: "{{ nmap_package }}"
+        state: present
+      when: nmap_package is defined

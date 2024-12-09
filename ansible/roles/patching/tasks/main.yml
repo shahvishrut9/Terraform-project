@@ -1,0 +1,7 @@
+# ~/automation/ansible/roles/patching/tasks/main.yml
+- name: Update all installed packages on RedHat or CentOS
+  package:
+    name: "*"
+    state: latest
+  when: ansible_distribution == "RedHat" or ansible_distribution == "CentOS"
+  notify: Reboot the system
